@@ -1,0 +1,92 @@
+import logo from './logo.svg';
+import './App.css';
+import { useState, useEffect } from 'react'
+
+
+function App() {
+
+  const[input,setInput] = useState(" " );
+  const[list,setList] = useState([] );
+const[edi,setEdi] = useState(null);
+const[key,setKey] = useState('');
+const changeHandler =(event) =>{
+ 
+  var eve =event.target.value
+
+  
+ setInput(event.target.value)
+
+
+
+
+}
+
+const edit =(keys) =>{
+ console.log(keys)
+ let storeList = [...list];
+ console.log(storeList)
+
+let inde = storeList[keys]
+console.log(inde)
+
+setInput(inde);
+setEdi(keys);
+
+setKey(inde);
+
+
+}
+const add =()=>{
+  console.log(input)
+  if(key == ''){
+    alert('Enter a key');
+  }
+let storeList = [...list];
+
+
+if(edi !==  null){
+storeList[edi] = input;
+setList(storeList);
+setEdi(null);
+
+}
+else{
+  storeList.push(input);
+  setList(storeList);
+
+}
+setInput("");
+}
+const delet =(index)=>{
+  let storeList = [...list];
+  storeList.splice(index,1);
+  setList(storeList);
+
+}
+  return (
+
+
+    <div className="App">
+    <input type ="text" onChange={changeHandler}  value ={input}></input>
+    <button onClick={add}>Add</button>
+
+   <h1>{input}</h1>
+
+ {list.map((list,index) =>{
+  return(
+    <div key = {index}>
+  <p key ={index} style={{color: "red"}}> {list }</p>
+  
+  <button onClick={() => delet(index)}>Delete</button>
+
+ <button onClick={() => edit(index)}>Edit</button><input type="checkbox" />
+  </div>
+  )
+ }
+ )}
+
+    </div>
+  );
+}
+
+export default App;

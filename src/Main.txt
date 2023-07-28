@@ -1,0 +1,106 @@
+
+import './App.css';
+import { useState } from 'react'
+import image from './image.png'; 
+import { FaMinusCircle ,FaEnvelopeOpenText} from "react-icons/fa";
+
+function App() {
+  
+const[input,setInput] = useState(" " );
+const[list,setList] = useState([] );
+const[edi,setEdi] = useState(null);
+const changeHandler =(event) =>{
+
+    
+  var eve =event.target.value
+
+  
+ setInput(event.target.value)
+
+
+
+
+}
+
+const edit =(keys) =>{
+ console.log(keys)
+ let storeList = [...list];
+ console.log(storeList)
+
+
+let inde = storeList[keys]
+console.log(inde)
+
+setInput(inde);
+setEdi(keys);
+
+
+
+
+}
+const add =()=>{
+if(list === []){
+
+return alert('plesae') ;
+}
+
+  console.log(input)
+let storeList = [...list];
+
+
+if(edi !==  null){
+  
+storeList[edi] = input;
+setList(storeList);
+setEdi(null);
+
+}
+else{
+ 
+  storeList.push(input);
+  setList(storeList);
+
+}
+
+setInput("");
+}
+const delet =(index)=>{
+  let storeList = [...list];
+  storeList.splice(index,1);
+  setList(storeList);
+
+}
+
+  return (
+   
+
+    <div className="App">
+    <img src={image} alt="image" style={{ width:'250px',height:'150px' }}/>
+   <br></br>
+    <input type ="text" placeholder='Enter a task' onChange={changeHandler}  value ={input}></input>
+    <button className ="add" onClick={add}>+</button>
+
+
+
+ {list.map((list,index) =>{
+  return(
+  
+    <div key = {index}>
+  <p key ={index} style={{color: "red"}}> {list }</p>
+
+  <FaMinusCircle onClick={() => delet(index)}style={{ color: 'white', height :'30px', width: '30px',marginLeft:'10px',marginBottom:'10px'}} ></FaMinusCircle>
+  
+ <FaEnvelopeOpenText onClick={() => edit(index)}  style={{ color: 'white', height :'30px', width: '30px',marginLeft:'10px',marginBottom:'10px'}}>Edit</FaEnvelopeOpenText>
+ <input type="checkbox" style={{ color: 'white', height :'30px', width: '30px',marginLeft:'10px',marginTop:'-10px'}}/>
+  </div>
+ 
+  )
+ }
+ )}
+  </div>
+    
+  );
+
+}
+
+export default App;
